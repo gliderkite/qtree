@@ -1,4 +1,4 @@
-#include "quad_tree.hpp"
+#include "quadtree.hpp"
 using namespace qtree;
 
 #include "gtest/gtest.h"
@@ -67,16 +67,16 @@ namespace
 
     // Test multiple depths
     using QuadTreeTypes = Types<
-        quad_tree<TElement, TCoordinate, 1>,
-        quad_tree<TElement, TCoordinate, 2>,
-        quad_tree<TElement, TCoordinate, 3>,
-        quad_tree<TElement, TCoordinate, 4>,
-        quad_tree<TElement, TCoordinate, 5>,
-        quad_tree<TElement, TCoordinate, 5>,
-        quad_tree<TElement, TCoordinate, 6>,
-        quad_tree<TElement, TCoordinate, 8>,
-        quad_tree<TElement, TCoordinate, 9>,
-        quad_tree<TElement, TCoordinate, 10>>;
+        quadtree<TElement, TCoordinate, 1>,
+        quadtree<TElement, TCoordinate, 2>,
+        quadtree<TElement, TCoordinate, 3>,
+        quadtree<TElement, TCoordinate, 4>,
+        quadtree<TElement, TCoordinate, 5>,
+        quadtree<TElement, TCoordinate, 5>,
+        quadtree<TElement, TCoordinate, 6>,
+        quadtree<TElement, TCoordinate, 8>,
+        quadtree<TElement, TCoordinate, 9>,
+        quadtree<TElement, TCoordinate, 10>>;
 
     TYPED_TEST_CASE(QuadTreeTest, QuadTreeTypes);
 }

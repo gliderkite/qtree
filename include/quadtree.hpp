@@ -55,14 +55,14 @@ namespace qtree
     }
 
     template<typename TElement, typename TCoordinate, std::size_t Depth>
-    class quad_tree : public qnode<TElement, TCoordinate>
+    class quadtree : public qnode<TElement, TCoordinate>
     {
         /// The parent node can access these private members.
-        friend class quad_tree<TElement, TCoordinate, Depth + 1>;
+        friend class quadtree<TElement, TCoordinate, Depth + 1>;
 
         /// This node children will be created in the heap store (in order to avoid
         /// possible stack overflow for high levels of depth).
-        using TNodePtr = std::unique_ptr<quad_tree<TElement, TCoordinate, Depth - 1>>;
+        using TNodePtr = std::unique_ptr<quadtree<TElement, TCoordinate, Depth - 1>>;
 
 
     public:
@@ -71,7 +71,7 @@ namespace qtree
         /// Initializes the instance with the given bounds.
         /// </summary>
         /// <param name="bounds">Quad tree bounds.</param>
-        explicit quad_tree(rect<TCoordinate> bounds)
+        explicit quadtree(rect<TCoordinate> bounds)
             : qnode<TElement, TCoordinate>(std::move(bounds))
         {
             init_children();
@@ -216,33 +216,33 @@ namespace qtree
             const auto bounds = this->get_bounds();
 
             _children[NorthWest()].reset(
-                new quad_tree<TElement, TCoordinate, Depth - 1>(child_bounds<TCoordinate, NorthWest()>(bounds)));
+                new quadtree<TElement, TCoordinate, Depth - 1>(child_bounds<TCoordinate, NorthWest()>(bounds)));
 
             _children[NorthEast()].reset(
-                new quad_tree<TElement, TCoordinate, Depth - 1>(child_bounds<TCoordinate, NorthEast()>(bounds)));
+                new quadtree<TElement, TCoordinate, Depth - 1>(child_bounds<TCoordinate, NorthEast()>(bounds)));
 
             _children[SouthEast()].reset(
-                new quad_tree<TElement, TCoordinate, Depth - 1>(child_bounds<TCoordinate, SouthEast()>(bounds)));
+                new quadtree<TElement, TCoordinate, Depth - 1>(child_bounds<TCoordinate, SouthEast()>(bounds)));
 
             _children[SouthWest()].reset(
-                new quad_tree<TElement, TCoordinate, Depth - 1>(child_bounds<TCoordinate, SouthWest()>(bounds)));
+                new quadtree<TElement, TCoordinate, Depth - 1>(child_bounds<TCoordinate, SouthWest()>(bounds)));
         }
 
         std::array<TNodePtr, 4> _children;
     };
 
-    /* quad_tree template specialization for Depth 0. */
+    /* quadtree template specialization for Depth 0. */
     template<typename TElement, typename TCoordinate>
-    class quad_tree<TElement, TCoordinate, 0> : public qnode<TElement, TCoordinate>
+    class quadtree<TElement, TCoordinate, 0> : public qnode<TElement, TCoordinate>
     {
         /// The parent node can access these private members.
-        friend class quad_tree<TElement, TCoordinate, 1>;
+        friend class quadtree<TElement, TCoordinate, 1>;
 
         /// <summary>
         /// Initializes the instance with the given bounds.
         /// </summary>
         /// <param name="bounds">Quad tree bounds.</param>
-        constexpr explicit quad_tree(rect<TCoordinate> bounds)
+        constexpr explicit quadtree(rect<TCoordinate> bounds)
             : qnode<TElement, TCoordinate>(std::move(bounds))
         {
         }
