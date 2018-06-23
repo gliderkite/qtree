@@ -15,10 +15,10 @@ DEBUG=false
 for key in $@
 do
 case $key in
-    -clean)
+    --clean)
     CLEAN=true
     ;;
-    -debug)
+    --debug)
     DEBUG=true
     ;;
 esac
